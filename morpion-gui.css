@@ -1,0 +1,46 @@
+
+/**
+
+    Fichier CSS
+
+    Pas forcément prendre exemple dessus
+
+*/
+
+
+body{
+    background-color: #343a40;
+}
+
+header{
+    color: white;
+}
+
+#morpion-title{
+    font-family: cursive;
+    font-size: 3.5rem;
+}
+
+#morpion-logo{
+  width: 50px;
+  margin-right: 10px;
+}
+
+#morpion-game{
+    margin-top: 100px;
+}
+
+#morpion-game.table td{
+    text-align: center;
+    padding: 0px;
+}
+
+#morpion-game.table td a{
+    font-size: 72px;
+    display: block;
+    width: 150px;
+    height: 150px;
+    text-decoration: none;
+    line-height: 100px;
+}
+

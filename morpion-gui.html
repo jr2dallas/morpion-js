@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Morpion css -->
+    <link rel="stylesheet" href="morpion-gui.css">
+
+
+    <title>Jeu du Morpion !</title>
+
+  </head>
+
+
+  <body>
+
+
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+
+              <!-- Logo et Titre -->
+              <a href="#" class="navbar-brand d-flex align-items-center">
+                <img src="morpion-logo.jpg" id="morpion-logo" />
+
+                <h1 id="morpion-title">Morpion</h1>
+                
+              </a>
+
+              <!-- Afficher le tour du joueur -->
+              <h1>
+                <span>Au tour du Joueur</span>
+                <span class="badge" id="currentPlayerInsign"></span>
+              </h1>
+
+            
+            </div>
+          </div>
+
+
+    </header>
+
+
+
+    <div class="container">
+   
+        <div class="row">
+
+            <div class="col-sm"></div>
+            <div class="col-sm">
+
+                <!-- table du morpion initialisé avec la class boostrap primary (bleu)-->
+                <table id="morpion-game" class="table table-dark table-responsive table-bordered">
+                <tbody>
+                <tr>
+                    <td><a href="#" id="cell_0" class="badge badge-primary">-</a></td>
+                    <td><a href="#" id="cell_1" class="badge badge-primary">-</a></td>
+                    <td><a href="#" id="cell_2" class="badge badge-primary">-</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#" id="cell_3" class="badge badge-primary">-</a></td>
+                    <td><a href="#" id="cell_4" class="badge badge-primary">-</a></td>
+                    <td><a href="#" id="cell_5" class="badge badge-primary">-</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#" id="cell_6" class="badge badge-primary">-</a></td>
+                    <td><a href="#" id="cell_7" class="badge badge-primary">-</a></td>
+                    <td><a href="#" id="cell_8" class="badge badge-primary">-</a></td>
+                </tr>
+                </tbody>
+                </table>
+            </div>
+
+            <div class="col-sm"></div>
+        </div>
+    </div>
+
+    <!-- Modal Gagné -->
+    <div class="modal fade" id="morpion-result-win" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Player <span class="winnerInsign"></span> has won !</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            Congratulation player <span class="winnerInsign"></span> you have Won !
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark morpion-reset" data-dismiss="modal">Terminer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- Modal Match null -->
+    <div class="modal fade" id="morpion-result-no-winner" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Personne n'a gagné :(</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              
+                  Personne n'a gagné ! :(
+              
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark morpion-reset" data-dismiss="modal">Terminer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Inclure le moteur du jeu en 1er -->
+    <script type="text/javascript" src="morpion-core.js"></script>
+
+    <!-- Inclure le script boite à outils -->
+    <script type="text/javascript" src="morpion-tools.js"></script>
+
+    <!-- Inclure le script qui ne gère que l'affichage -->
+    <script type="text/javascript" src="morpion-gui.js"></script>
+
+
+  </body>
+</html>
