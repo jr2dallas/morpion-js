@@ -176,34 +176,47 @@ function hasWonInColumn(data, joueur){
 /**
  * Le joueur a-t-il gagné sur une diagonale ?
  * 
- * @todo à améliorer ..
- * 
  * @param {Array} data Grille morpion
  * @param {String} joueur Symbole du joueur
  */
 function hasWonInDiagonal(data, joueur){
 
-    var values = []
+    // Coordonnée de la 1ère diagonale
+    var diagonalValues = [
+        data[0][0],
+        data[1][1],
+        data[2][2],
+    ]
 
     // Diagonale 1
-    if(data[0][0] == data[1][1] && data[1][1] == data[2][2] && data[2][2] == joueur){
+    if(isConsecutive(diagonalValues, joueur)){
         // stocker les cellules gagnantes
+        var values = []
         for(y = 0; y < HEIGHT; y++){
             values[y] = coordToIndex(y, y)
         }
         return values
     }
 
+    // Coordonnée de la 2ème diagonale
+    diagonalValues = [
+        data[2][0], 
+        data[1][1], 
+        data[0][2]
+    ]
+    
     // Diagonale 2
-    if(data[2][0] == data[1][1] && data[1][1] == data[0][2] && data[0][2] == joueur){
+    if(isConsecutive(diagonalValues, joueur)){
         // stocker les cellules gagnantes
+        var values = []
         for(y = 0; y < HEIGHT; y++){
             values[y] = coordToIndex((HEIGHT-1) - y, y)
         }
         return values
     }
 
-    return values
+    // Aucune diagonale gagnante, on renvoie une liste vide
+    return []
 }
 
 /**

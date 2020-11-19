@@ -79,7 +79,8 @@ function initialize(currentPlayer){
 }
 
 /**
- * Lorsque l'utlisateur termine le jeu, on réinitialise tout
+ * Evenement reçu lorsque l'utlisateur clic sur fermer la modal
+ * On termine le jeu et on réinitialise tout
  */
 $('#morpion-result-win, #morpion-result-no-winner').on('hidden.bs.modal', function () {
 
@@ -177,11 +178,14 @@ function manageEndOfGame(){
 
 function onCellClick(e){
 
+    // Récupérer l'Id de la cellule (exemple cell_3)
+    var cellId = e.srcElement.id
+
     // récupérer le joueur courant en fonction du numéro de tour (turn pair => joueur1, turn impaire => joueur2)
     currentPlayer = turn % 2 == 0 ? joueur1 : joueur2;
 
     // extraire le numéro de la cellule cliquée (entre 0 et 8, ex: cell_3 => 3)
-    var cellNumber = extractCellNumber(e.srcElement.id)
+    var cellNumber = extractCellNumber(cellId)
 
     // convertir en coordonnée [x,y]
     var value = indexToCoord(cellNumber)
@@ -215,7 +219,7 @@ function onCellClick(e){
     displayGrid(gameData)
 
     // mettre à jour la cellule HTML
-    updateCellHTML(currentPlayer, value.x, value.y)
+    updateCellHTML(currentPlayer, cellId)
 
     // tour suivant
     turn ++
@@ -226,10 +230,10 @@ function onCellClick(e){
     // afficher le tour du joueur suivant
     updatePlayerTurnHtml(nextPlayer)
 
-
     // si la partie n'est pas terminée, on continue
     if(!isEndOfTheGame(gameData, joueur1, joueur2))
         return
+    
 
     // la partie est terminée, on avertit le joueur gagnant ou le match null
     manageEndOfGame(gameData, joueur1, joueur2)
@@ -261,13 +265,10 @@ function initializeHTML(){
  * @param {int} x Coordonnée X
  * @param {int} y Coordonnée Y
  */
-function updateCellHTML(player, x, y){
-
-    // Optenir l'index de la cellule via son ID (ex: [0,1] = 3)
-    var convertedId = coordToIndex(x, y)
+function updateCellHTML(player, cellId){
 
     // Optenir l'élément Html via son Id (ex: cell_3)
-    var cell = document.getElementById(HTML_CELL_ID_PREFIX + convertedId)
+    var cell = document.getElementById(cellId)
 
     // Mettre à jour le contenu de la cellule (symbole du joueur)
     cell.innerHTML = player
