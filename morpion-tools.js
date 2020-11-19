@@ -50,7 +50,7 @@ function animateArrayElements(data, animationType){
 }
 
 /**
- * Faire clignoter la cellule cellNumber avec la classe badge-danger
+ * Faire clignoter la cellule cellNumber avec l'animation animationType
  * 
  * @param {int} cellNumber  index d'une cellule
  */
