@@ -82,7 +82,7 @@ function hasFreePosition(data){
 /**
  * L'utilisateur 'joueur' joue la case [x, y] dans la grille 'data'
  * 
- * @param {String} joueur joueur [X, O]
+ * @param {String} joueur CROSS ou CIRCLE
  * @param {Array} data Grille morpion
  * @param {int} x Coordonée X
  * @param {int} y Coordonée Y
@@ -97,30 +97,6 @@ function playThis(joueur, data, x, y){
 
     // renvoyer la grille mise à jour
     return data
-}
-
-
-/**
- * Renvoie les numéro des cellules gagnantes
- * 
- * @param {Array} data 
- * @param {String} joueur 
- */
-function getWinCellIndices(data, joueur){
-
-    var result = hasWonInRow(data, joueur)
-    if(result.length > 0)
-        return result
-
-    result = hasWonInColumn(data, joueur)
-    if(result.length > 0)
-        return result
-
-    result = hasWonInDiagonal(data, joueur)
-    if(result.length > 0)
-        return result
-
-    return []
 }
 
 /**
@@ -155,11 +131,13 @@ function hasWonInRow(data, joueur){
         // 3 cases consécutives sur l'axe X est c'est gagné
         if(isConsecutive(data[x], joueur)){
 
+            // convertir une coordonnée en index, exemple Colonne 2, Ligne 3 = 7)
             var index = coordToIndex(x, 0)
 
-            values[0] = index
-            values[1] = index + 1 
-            values[2] = index + 2
+            // stocker les cellules gagnantes
+            for(y = 0; y < HEIGHT; y++){
+                values[y] = index + y
+            }
 
             return values
         }
@@ -175,17 +153,19 @@ function hasWonInRow(data, joueur){
  */
 function hasWonInColumn(data, joueur){
     var values = []
-    for(x = 0; x < data.length; x++){
+    for(y = 0; y < data.length; y++){
         var column = new Array()
-        for(y = 0; y < data[x].length; y++){
-            column += data[y][x]
+        for(x = 0; x < data[y].length; x++){
+            column += data[x][y]
         }
         // 3 cases consécutives sur l'axe Y et c'est gagné
         if(isConsecutive(column, joueur)){
 
-            values[0] = coordToIndex(0, x)
-            values[1] = coordToIndex(1, x)
-            values[2] = coordToIndex(2, x)
+            // stocker les cellules gagnantes
+            for(x = 0; x < WIDTH; x++){
+                // convertir une coordonnée en index, exemple Colonne 2, Ligne 3 = 7)
+                values[x] = coordToIndex(x, y)
+            }
             
             return values
         }
@@ -207,21 +187,46 @@ function hasWonInDiagonal(data, joueur){
 
     // Diagonale 1
     if(data[0][0] == data[1][1] && data[1][1] == data[2][2] && data[2][2] == joueur){
-        values[0] = coordToIndex(0, 0)
-        values[1] = coordToIndex(1, 1)
-        values[2] = coordToIndex(2, 2)
+        // stocker les cellules gagnantes
+        for(y = 0; y < HEIGHT; y++){
+            values[y] = coordToIndex(y, y)
+        }
         return values
     }
 
     // Diagonale 2
     if(data[2][0] == data[1][1] && data[1][1] == data[0][2] && data[0][2] == joueur){
-        values[0] = coordToIndex(2, 0)
-        values[1] = coordToIndex(1, 1)
-        values[2] = coordToIndex(0, 2)
+        // stocker les cellules gagnantes
+        for(y = 0; y < HEIGHT; y++){
+            values[y] = coordToIndex((HEIGHT-1) - y, y)
+        }
         return values
     }
 
     return values
+}
+
+/**
+ * Renvoie les numéro des cellules gagnantes
+ * 
+ * @param {Array} data 
+ * @param {String} joueur 
+ */
+function getWinCellIndices(data, joueur){
+
+    var result = hasWonInRow(data, joueur)
+    if(result.length > 0)
+        return result
+
+    result = hasWonInColumn(data, joueur)
+    if(result.length > 0)
+        return result
+
+    result = hasWonInDiagonal(data, joueur)
+    if(result.length > 0)
+        return result
+
+    return []
 }
 
 /**
