@@ -32,7 +32,11 @@ var turn = 0
 var gameData = []
 
 // Optenir l'élément Html qui représente le joueur courant
-var currentPlayerInsign = document.getElementById("currentPlayerInsign")
+//var currentPlayerInsign = document.getElementById("currentPlayerInsign")
+
+var currentPlayerInsign = document.getElementsByClassName("currentPlayerInsign")
+
+console.log("currentPlayerInsign: ", currentPlayerInsign)
 
 /////////////////
 // MAIN 
@@ -105,23 +109,27 @@ function bindAllCells(){
 }
 
 /**
- * Mettre à jour le symbole du joueur courant dans le Html
+ * Mettre à jour le symbole du joueur courant pour chaque classe Html 'currentPlayerInsign'
  * 
  * @param {String} currentPlayer Symbole du joueur courant
  */
 function updatePlayerTurnHtml(currentPlayer){
 
-    if(currentPlayer == CROSS){
-        currentPlayerInsign.classList.remove('badge-success')
-        currentPlayerInsign.classList.add('badge-warning')
-    }
 
-    if(currentPlayer == CIRCLE){
-        currentPlayerInsign.classList.remove('badge-warning')
-        currentPlayerInsign.classList.add('badge-success')
-    }
+    for(i = 0; i < currentPlayerInsign.length; i++){
 
-    currentPlayerInsign.innerHTML = currentPlayer
+        if(currentPlayer == CROSS){
+            currentPlayerInsign[i].classList.remove('badge-success')
+            currentPlayerInsign[i].classList.add('badge-warning')
+        }
+
+        if(currentPlayer == CIRCLE){
+            currentPlayerInsign[i].classList.remove('badge-warning')
+            currentPlayerInsign[i].classList.add('badge-success')
+        }
+
+        currentPlayerInsign[i].innerHTML = currentPlayer
+    }
 }
 
 
@@ -155,7 +163,8 @@ function manageEndOfGame(){
     animateArrayElements(values, ANIMATION_TYPE_WIN)
 
     // Afficher une modal avec le joueur en gagnant
-    $('#morpion-result-win .winnerInsign').text(joueurGagnant)
+    updatePlayerTurnHtml(joueurGagnant)
+
     $('#morpion-result-win').modal()
 }
 
@@ -254,8 +263,10 @@ function initializeHTML(){
         }
     }
 
-    currentPlayerInsign.innerHTML = joueur1
-    currentPlayerInsign.classList.add('badge-warning')
+    for(i = 0; i < currentPlayerInsign.length; i++){
+        currentPlayerInsign[i].innerHTML = joueur1
+        currentPlayerInsign[i].classList.add('badge-warning')
+    }
 }
 
 /**
