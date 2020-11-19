@@ -31,12 +31,8 @@ var turn = 0
 // déclarer en variable globale la grille du jeu (on l'initialise plus tard)
 var gameData = []
 
-// Optenir l'élément Html qui représente le joueur courant
-//var currentPlayerInsign = document.getElementById("currentPlayerInsign")
-
+// Optenir les élément Html qui représentent le joueur courant (une liste d'élement qui ont la classe CSS currentPlayerInsign)
 var currentPlayerInsign = document.getElementsByClassName("currentPlayerInsign")
-
-console.log("currentPlayerInsign: ", currentPlayerInsign)
 
 /////////////////
 // MAIN 
